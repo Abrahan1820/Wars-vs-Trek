@@ -57,7 +57,7 @@ public class Personaje {
         this.suerte = calcularSuerte();
     }
 
-    public int getPrioridad() {
+    public int getNivelPrioridad() {
         return prioridad;
     }
 

@@ -16,10 +16,10 @@ public class InteligenciaArtificial {
 
         // Encontrar dos personajes con la prioridad más baja posible
         for (Personaje personaje : personajes) {
-            if (p1 == null || personaje.getPrioridad() < p1.getPrioridad()) {
+            if (p1 == null || personaje.getNivelPrioridad() < p1.getNivelPrioridad()) {
                 p2 = p1;
                 p1 = personaje;
-            } else if (p2 == null || personaje.getPrioridad() < p2.getPrioridad()) {
+            } else if (p2 == null || personaje.getNivelPrioridad() < p2.getNivelPrioridad()) {
                 p2 = personaje;
             }
         }
