@@ -35,52 +35,20 @@ public class Personaje {
     public double nivelCombate() {
         return (fuerza + velocidad + inteligencia + agilidad) * this.suerte;
     }
+    
+    
 
-    // Getters
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getSerie() {
-        return serie;
-    }
-
-    public double getSuerte() {
-        return suerte;
-    }
-
-    public void nuevaSuerte() {
-        this.suerte = calcularSuerte();
-    }
-
-    public int getNivelPrioridad() {
-        return prioridad;
-    }
-
-    public void setNivelPrioridad(int nuevaPrioridad) {
-        this.prioridad = nuevaPrioridad;
-    }
-
-    public void resetearContadorRondas() {
-        // Implementar la lógica para resetear rondas, si es necesario.
-    }
+    // Getters y Setters
+    public int getId() { return id; }
+    public String getNombre() { return nombre; }
+    public String getSerie() { return serie; }
+    public double getSuerte() { return suerte; }
+    public void nuevaSuerte() { this.suerte = calcularSuerte(); }
+    public int getNivelPrioridad() { return prioridad; }
+    public void setNivelPrioridad(int nuevaPrioridad) { this.prioridad = nuevaPrioridad; }
 
     @Override
     public String toString() {
-        return "Personaje{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", serie='" + serie + '\'' +
-                ", fuerza=" + fuerza +
-                ", velocidad=" + velocidad +
-                ", inteligencia=" + inteligencia +
-                ", agilidad=" + agilidad +
-                ", suerte=" + suerte +
-                ", nivelCombate=" + nivelCombate() +
-                '}';
+        return "Personaje{" + "id=" + id + ", nombre='" + nombre + '\'' + ", serie='" + serie + '\'' + ", fuerza=" + fuerza + ", velocidad=" + velocidad + ", inteligencia=" + inteligencia + ", agilidad=" + agilidad + ", suerte=" + suerte + ", nivelCombate=" + nivelCombate() + '}';
     }
 }
