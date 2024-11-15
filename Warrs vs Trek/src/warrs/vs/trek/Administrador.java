@@ -39,6 +39,9 @@ public class Administrador {
             
             // Después de cada batalla, se actualizan las colas y los personajes se envían a refuerzo si es necesario
             actualizarColas();
+
+            // Mostrar el estado de las colas después de la ronda
+            mostrarEstadoColas();
         }
     }
 
@@ -80,6 +83,19 @@ public class Administrador {
                     cola.add(personaje);
                 }
             }
+        }
+    }
+
+    // Método para mostrar el estado de las colas de Star Wars y Star Trek
+    public void mostrarEstadoColas() {
+        System.out.println("\nEstado de las colas de Star Wars:");
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Prioridad " + (i + 1) + ": " + colasStarWars.get(i));
+        }
+
+        System.out.println("\nEstado de las colas de Star Trek:");
+        for (int i = 0; i < 4; i++) {
+            System.out.println("Prioridad " + (i + 1) + ": " + colasStarTrek.get(i));
         }
     }
 

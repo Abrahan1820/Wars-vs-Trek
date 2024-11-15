@@ -18,6 +18,7 @@ public class Simulador {
         for (int i = 0; i < 10; i++) {
             System.out.println("\n--- Ronda " + (i + 1) + " ---");
             administrador.gestionarSistema(ia);  // El Administrador gestiona las batallas
+            mostrarEstadoColas();  // Imprimir el estado de las colas después de la ronda
         }
     }
 
@@ -69,11 +70,16 @@ public class Simulador {
         administrador.agregarPersonaje("Star Trek", "Q", 2, 100, 75, 60, 95, Math.random() + 0.5);
         administrador.agregarPersonaje("Star Trek", "Guinan", 3, 70, 80, 85, 75, Math.random() + 0.5);
         administrador.agregarPersonaje("Star Trek", "Lore", 1, 90, 85, 80, 95, Math.random() + 0.5);
-        administrador.agregarPersonaje("Star Trek", "Borg Queen", 2, 95, 80, 85, 90, Math.random() + 0.5);
-        administrador.agregarPersonaje("Star Trek", "Klingon Captain", 3, 80, 70, 75, 85, Math.random() + 0.5);
+        administrador.agregarPersonaje("Star Trek", "Borg Queen", 2, 95, 80, 85, 70, Math.random() + 0.5);
         administrador.agregarPersonaje("Star Trek", "Khan Noonien Singh", 1, 100, 95, 85, 90, Math.random() + 0.5);
         administrador.agregarPersonaje("Star Trek", "Seven of Nine", 2, 85, 90, 80, 95, Math.random() + 0.5);
         administrador.agregarPersonaje("Star Trek", "Tasha Yar", 3, 70, 75, 65, 80, Math.random() + 0.5);
+    }
+
+    // Método para mostrar el estado de las colas
+    private void mostrarEstadoColas() {
+        System.out.println("\nEstado de las colas:");
+        administrador.mostrarEstadoColas();  // Llamamos al método para mostrar las colas
     }
 
     public static void main(String[] args) {
@@ -82,4 +88,3 @@ public class Simulador {
         simulador.iniciarSimulacion();
     }
 }
-
