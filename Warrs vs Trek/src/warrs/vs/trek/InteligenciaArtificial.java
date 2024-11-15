@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Random;
 
 public class InteligenciaArtificial {
     private Random random = new Random();
@@ -18,10 +18,10 @@ public class InteligenciaArtificial {
                 break;
 
             case 2: // Empate
-                // Colocamos a ambos personajes al final de la cola de nivel 1
-                System.out.println("Empate. Ambos personajes van a la cola de nivel 1.");
-                personaje1.actualizarContador();  // Incrementamos el contador de ambos personajes
-                personaje2.actualizarContador();
+                // Colocamos a ambos personajes al final de la cola de nivel 1 (puedes ajustarlo a la cola de refuerzo o reserva)
+                System.out.println("Empate. Ambos personajes van a la cola de refuerzo.");
+                enviarAColaRefuerzo(personaje1);
+                enviarAColaRefuerzo(personaje2);
                 break;
 
             case 3: // No se puede llevar a cabo el combate
@@ -69,6 +69,12 @@ public class InteligenciaArtificial {
     // Método para enviar un personaje a la cola de refuerzo
     private void enviarAColaRefuerzo(Personaje personaje) {
         System.out.println("Enviando a " + personaje.getNombre() + " a la cola de refuerzo.");
-        personaje.setContador(0);
+        personaje.setContador(0);  // Reseteamos el contador para los personajes que van a refuerzo
+        
+        if (personaje.getSaga().equalsIgnoreCase("Star Wars")) {
+            Administrador.colasStarWars.get(3).add(personaje);
+        } else if (personaje.getSaga().equalsIgnoreCase("Star Trek")) {
+            Administrador.colasStarTrek.get(3).add(personaje);
+        }
     }
 }
