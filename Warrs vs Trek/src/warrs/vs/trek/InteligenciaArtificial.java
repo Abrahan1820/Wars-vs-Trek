@@ -18,7 +18,7 @@ public class InteligenciaArtificial {
                 break;
 
             case 2: // Empate
-                // Colocamos a ambos personajes al final de la cola de nivel 1 (puedes ajustarlo a la cola de refuerzo o reserva)
+                // Colocamos a ambos personajes al final de la cola de refuerzo
                 System.out.println("Empate. Ambos personajes van a la cola de refuerzo.");
                 enviarAColaRefuerzo(personaje1);
                 enviarAColaRefuerzo(personaje2);
@@ -69,8 +69,7 @@ public class InteligenciaArtificial {
     // Método para enviar un personaje a la cola de refuerzo
     private void enviarAColaRefuerzo(Personaje personaje) {
         System.out.println("Enviando a " + personaje.getNombre() + " a la cola de refuerzo.");
-        personaje.setContador(0);  // Reseteamos el contador para los personajes que van a refuerzo
-        
+        // Aquí no se reinicia el contador, solo se maneja la cola de refuerzo
         if (personaje.getSaga().equalsIgnoreCase("Star Wars")) {
             Administrador.colasStarWars.get(3).add(personaje);
         } else if (personaje.getSaga().equalsIgnoreCase("Star Trek")) {

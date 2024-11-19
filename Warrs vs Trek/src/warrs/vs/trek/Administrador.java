@@ -8,7 +8,7 @@ public class Administrador {
      static List<Queue<Personaje>> colasStarWars = new ArrayList<>();
     static List<Queue<Personaje>> colasStarTrek = new ArrayList<>();
     private Random random = new Random();
-    int velocidadRondas = 1;
+    static int velocidadRondas = 1;
     
     // Constructor: Inicializa las 4 colas de prioridad (3 de prioridad + 1 de refuerzo)
     public Administrador() {
@@ -24,7 +24,7 @@ public void gestionarSistema(InteligenciaArtificial ia) {
         System.out.println("\n--- Ronda " + ronda + " ---");
         
         try {
-                Thread.sleep(velocidadRondas * 500);  // Pausa en milisegundos
+                Thread.sleep(velocidadRondas * 1000);  // Pausa en milisegundos
         // Revisión de batallas y selección de personajes
         Personaje personajeSW = seleccionarPersonaje(colasStarWars);
         Personaje personajeST = seleccionarPersonaje(colasStarTrek);
@@ -37,14 +37,19 @@ public void gestionarSistema(InteligenciaArtificial ia) {
         }
 
         // Reintegrar personajes de refuerzo a las colas de prioridad más baja
-        reintegrarPersonajes(colasStarWars);
-        reintegrarPersonajes(colasStarTrek);
+        int contador = 0; // Inicializa el contador
+
+        // Dentro de tu bucle:
+        contador++;
+        if (contador > 4) {
+            reintegrarPersonajes(colasStarWars);
+            reintegrarPersonajes(colasStarTrek);
+        }
         
         // Después de cada batalla, se actualizan las colas y los personajes se envían a refuerzo si es necesario
         actualizarColas();
 
-        // Mostrar el estado de las colas después de la ronda
-        mostrarEstadoColas();
+
         
         } catch (InterruptedException e) {
                 System.err.println("Error en la pausa entre rondas: " + e.getMessage());
@@ -93,61 +98,71 @@ public void gestionarSistema(InteligenciaArtificial ia) {
         }
     }
 
-    // Método para mostrar el estado de las colas de Star Wars y Star Trek
-public String mostrarEstadoColas() {
+// Métodos para Star Wars
+    public String mostrarEstadoColaStarWars(int prioridad) {
+    return mostrarEstadoColaEspecifica(colasStarWars, prioridad, "Star Wars");
+}
+
+// Métodos para Star Trek
+public String mostrarEstadoColaStarTrek(int prioridad) {
+    return mostrarEstadoColaEspecifica(colasStarTrek, prioridad, "Star Trek");
+}
+
+// Método auxiliar genérico para obtener el estado de una cola específica
+private String mostrarEstadoColaEspecifica(List<Queue<Personaje>> colas, int prioridad, String universo) {
     StringBuilder resultado = new StringBuilder();
-    
-    // Mostrar colas de Star Wars
-    resultado.append("Estado de las colas Star Wars:\n");
-    for (int i = 0; i < colasStarWars.size(); i++) {
-        resultado.append("Prioridad ").append(i + 1).append(": ");
-        
-        // Mostrar elementos de la cola
-        Queue<Personaje> cola = colasStarWars.get(i);
-        if (cola.isEmpty()) {
-            resultado.append("Vacío\n");
-        } else {
-            for (Personaje personaje : cola) {
-                resultado.append(personaje.getNombre()).append(", "); // Asegúrate de tener un método getNombre() en Personaje
-            }
-            // Eliminar la última coma y espacio
-            resultado.setLength(resultado.length() - 2);
-            resultado.append("\n");
-        }
+
+    // Validar que la prioridad exista
+    if (prioridad < 0 || prioridad >= colas.size()) {
+        resultado.append("Prioridad no válida\n");
+        return resultado.toString();
     }
-    
-    // Mostrar colas de Star Trek
-    resultado.append("Estado de las colas Star Trek:\n");
-    for (int i = 0; i < colasStarTrek.size(); i++) {
-        resultado.append("Prioridad ").append(i + 1).append(": ");
-        
-        // Mostrar elementos de la cola
-        Queue<Personaje> cola = colasStarTrek.get(i);
-        if (cola.isEmpty()) {
-            resultado.append("Vacío\n");
-        } else {
-            for (Personaje personaje : cola) {
-                resultado.append(personaje.getNombre()).append(", ");
-            }
-            // Eliminar la última coma y espacio
-            resultado.setLength(resultado.length() - 2);
-            resultado.append("\n");
+
+    // Obtener la cola correspondiente
+    Queue<Personaje> cola = colas.get(prioridad);
+    if (cola.isEmpty()) {
+        resultado.append("Vacío\n");
+    } else {
+        for (Personaje personaje : cola) {
+            resultado.append(personaje.getId()).append(' ').append(personaje.getNombre()).append("\n");
         }
+        // Eliminar la última coma y espacio
+        resultado.setLength(resultado.length() - 2);
+        resultado.append("\n");
     }
-    
+
     return resultado.toString();
 }
 
 
-
     // Método para agregar un nuevo personaje
-    public void agregarPersonaje(String saga, String nombre, int prioridad, int fuerza, int velocidad, int agilidad, int inteligencia, double suerte) {
-        Personaje nuevoPersonaje = new Personaje(nombre, saga, prioridad, fuerza, velocidad, agilidad, inteligencia);
-        
-        if (saga.equalsIgnoreCase("Star Wars")) {
-            colasStarWars.get(prioridad - 1).add(nuevoPersonaje);
-        } else if (saga.equalsIgnoreCase("Star Trek")) {
-            colasStarTrek.get(prioridad - 1).add(nuevoPersonaje);
+public void agregarPersonaje(String saga, String nombre, int prioridad, int fuerza, int velocidad, int agilidad, int inteligencia, double suerte) {
+    Personaje nuevoPersonaje = new Personaje(nombre, saga, prioridad, fuerza, velocidad, agilidad, inteligencia);
+    
+    if (saga.equalsIgnoreCase("Star Wars")) {
+        // Verificamos si el personaje ya está en la cola de prioridad
+        Queue<Personaje> cola = colasStarWars.get(prioridad - 1);
+        if (!esDuplicado(cola, nuevoPersonaje)) {
+            System.out.println("se supone que el personaje no es repetido");
+            cola.add(nuevoPersonaje);  // Solo lo agregamos si no está duplicado
+        }
+    } else if (saga.equalsIgnoreCase("Star Trek")) {
+        // Verificamos si el personaje ya está en la cola de prioridad
+        Queue<Personaje> cola = colasStarTrek.get(prioridad - 1);
+        if (!esDuplicado(cola, nuevoPersonaje)) {
+            cola.add(nuevoPersonaje);  // Solo lo agregamos si no está duplicado
         }
     }
+}
+
+// Método para verificar si un personaje ya está en la cola (por ID o nombre)
+private boolean esDuplicado(Queue<Personaje> cola, Personaje nuevoPersonaje) {
+    for (Personaje p : cola) {
+        if (p.getId() == nuevoPersonaje.getId()) {
+            return true;  // El personaje ya existe en la cola
+        }
+    }
+    return false;  // El personaje no existe, por lo que se puede agregar
+}
+
 }

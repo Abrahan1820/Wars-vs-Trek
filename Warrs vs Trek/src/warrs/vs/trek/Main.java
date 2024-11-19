@@ -13,9 +13,26 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         
-        this.setLocationRelativeTo(null);
+        
         this.setVisible(true);
         initComponents();
+        
+         // Añadir los oyentes de eventos
+    btnAumentar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnAumentarActionPerformed(evt);
+        }
+    });
+
+    btnDisminuir.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnDisminuirActionPerformed(evt);
+        }
+    });
+    
+    
+
+        
         
         administrador = new Administrador();
         ia = new InteligenciaArtificial();
@@ -99,7 +116,6 @@ public class Main extends javax.swing.JFrame {
     // Método para mostrar el estado de las colas
     private void mostrarEstadoColas() {
         System.out.println("\nEstado de las colas:");
-        administrador.mostrarEstadoColas();  // Llamamos al método para mostrar las colas
     }
 
     /**
@@ -112,101 +128,272 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        IATextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        AITextArea = new javax.swing.JTextArea();
+        Titulo = new javax.swing.JLabel();
+        Prioridad1SW = new javax.swing.JLabel();
+        ScrollPane1 = new javax.swing.JScrollPane();
+        Prioridad1SWT = new javax.swing.JTextArea();
+        Prioridad2SW = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Prioridad2SWT = new javax.swing.JTextArea();
+        Prioridad3SW = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        Prioridad4SWT = new javax.swing.JTextArea();
+        Prioridad4SW = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Prioridad3SWT = new javax.swing.JTextArea();
+        Prioridad1ST = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        Prioridad1STT = new javax.swing.JTextArea();
+        Prioridad2ST = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Prioridad2STT = new javax.swing.JTextArea();
+        Prioridad3ST = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Prioridad3STT = new javax.swing.JTextArea();
+        Prioridad4ST = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        Prioridad4STT = new javax.swing.JTextArea();
+        Time = new java.awt.Label();
+        label1 = new java.awt.Label();
+        btnDisminuir = new javax.swing.JButton();
+        btnAumentar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Star Wars         VS     Star Treck");
+        Titulo.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        Titulo.setText("Star Wars         VS     Star Treck");
 
-        jLabel2.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Inteligencia artificial:");
+        Prioridad1SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad1SW.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad1SW.setText("Prioridad 1");
 
-        IATextField.setBackground(new java.awt.Color(51, 51, 51));
-        IATextField.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
-        IATextField.setForeground(new java.awt.Color(255, 255, 255));
-        IATextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IATextFieldActionPerformed(evt);
-            }
-        });
+        Prioridad1SWT.setEditable(false);
+        Prioridad1SWT.setColumns(20);
+        Prioridad1SWT.setRows(5);
+        Prioridad1SWT.setAutoscrolls(false);
+        Prioridad1SWT.setRequestFocusEnabled(false);
+        ScrollPane1.setViewportView(Prioridad1SWT);
 
-        AITextArea.setColumns(20);
-        AITextArea.setRows(5);
-        jScrollPane1.setViewportView(AITextArea);
+        Prioridad2SW.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad2SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad2SW.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad2SW.setText("Prioridad 2");
+
+        Prioridad2SWT.setColumns(20);
+        Prioridad2SWT.setRows(5);
+        Prioridad2SWT.setAutoscrolls(false);
+        jScrollPane2.setViewportView(Prioridad2SWT);
+
+        Prioridad3SW.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad3SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad3SW.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad3SW.setText("Prioridad 3");
+
+        Prioridad4SWT.setColumns(20);
+        Prioridad4SWT.setRows(5);
+        Prioridad4SWT.setAutoscrolls(false);
+        jScrollPane3.setViewportView(Prioridad4SWT);
+
+        Prioridad4SW.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad4SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad4SW.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad4SW.setText("Reserva");
+
+        Prioridad3SWT.setColumns(20);
+        Prioridad3SWT.setRows(5);
+        Prioridad3SWT.setAutoscrolls(false);
+        jScrollPane4.setViewportView(Prioridad3SWT);
+
+        Prioridad1ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad1ST.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad1ST.setText("Prioridad 1");
+
+        Prioridad1STT.setEditable(false);
+        Prioridad1STT.setColumns(20);
+        Prioridad1STT.setRows(5);
+        Prioridad1STT.setAutoscrolls(false);
+        jScrollPane5.setViewportView(Prioridad1STT);
+
+        Prioridad2ST.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad2ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad2ST.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad2ST.setText("Prioridad 2");
+
+        Prioridad2STT.setColumns(20);
+        Prioridad2STT.setRows(5);
+        Prioridad2STT.setAutoscrolls(false);
+        jScrollPane6.setViewportView(Prioridad2STT);
+
+        Prioridad3ST.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad3ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad3ST.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad3ST.setText("Prioridad 3");
+
+        Prioridad3STT.setColumns(20);
+        Prioridad3STT.setRows(5);
+        Prioridad3STT.setAutoscrolls(false);
+        jScrollPane7.setViewportView(Prioridad3STT);
+
+        Prioridad4ST.setBackground(new java.awt.Color(51, 51, 51));
+        Prioridad4ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Prioridad4ST.setForeground(new java.awt.Color(255, 255, 255));
+        Prioridad4ST.setText("Reserva");
+
+        Prioridad4STT.setColumns(20);
+        Prioridad4STT.setRows(5);
+        Prioridad4STT.setAutoscrolls(false);
+        jScrollPane8.setViewportView(Prioridad4STT);
+        Prioridad4STT.getAccessibleContext().setAccessibleParent(jPanel1);
+
+        Time.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        Time.setForeground(new java.awt.Color(255, 255, 255));
+        Time.setName(""); // NOI18N
+        Time.setText("Tiempo (segs)");
+
+        label1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
+        label1.setForeground(new java.awt.Color(255, 255, 255));
+        label1.setName("time"); // NOI18N
+        label1.setText("1");
+
+        btnDisminuir.setText("-");
+
+        btnAumentar.setText("+");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 225, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(IATextField)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDisminuir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAumentar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(142, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(Prioridad4SW)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Prioridad3SW)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Prioridad2SW)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Prioridad1SW)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Prioridad1ST)
+                    .addComponent(Prioridad2ST)
+                    .addComponent(Prioridad3ST)
+                    .addComponent(Prioridad4ST))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(IATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDisminuir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btnAumentar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Prioridad1ST)
+                    .addComponent(ScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Prioridad1SW)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Prioridad2ST))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Prioridad3SW)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Prioridad3ST)))
+                    .addComponent(Prioridad2SW)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Prioridad4SW)
+                    .addComponent(Prioridad4ST))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
      private void inicializarInterfaz() {
+        
+         
+         
          Timer timer = new Timer(500, new ActionListener(){
+             
+         
          @Override
         // Establece el texto inicial del JTextField
         public void actionPerformed(ActionEvent e){
-        IATextField.setText(administrador.mostrarEstadoColas());
-        AITextArea.setText(administrador.mostrarEstadoColas());
+        Prioridad1SWT.setText(administrador.mostrarEstadoColaStarWars(0));
+        Prioridad2SWT.setText(administrador.mostrarEstadoColaStarWars(1));
+        Prioridad3SWT.setText(administrador.mostrarEstadoColaStarWars(2));
+        Prioridad4SWT.setText(administrador.mostrarEstadoColaStarWars(3));
+        
+        Prioridad1STT.setText(administrador.mostrarEstadoColaStarTrek(0));
+        Prioridad2STT.setText(administrador.mostrarEstadoColaStarTrek(1));
+        Prioridad3STT.setText(administrador.mostrarEstadoColaStarTrek(2));
+        Prioridad4STT.setText(administrador.mostrarEstadoColaStarTrek(3));
     }}); timer.start();
                  }
     
-    private void IATextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IATextFieldActionPerformed
-        IATextField.setText(administrador.mostrarEstadoColas());
-         AITextArea.setText(administrador.mostrarEstadoColas());
-    }//GEN-LAST:event_IATextFieldActionPerformed
-
      
 
     /**
@@ -247,13 +434,49 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
+        private void btnAumentarActionPerformed(java.awt.event.ActionEvent evt) {
+    // Aumentar la velocidad de las rondas
+    Administrador.velocidadRondas += 1;  // Aumentar la velocidad, puedes ajustar el valor según lo necesites
+}
+
+private void btnDisminuirActionPerformed(java.awt.event.ActionEvent evt) {
+    // Disminuir la velocidad de las rondas (no permitir valores negativos si es necesario)
+    if (Administrador.velocidadRondas > 0) {
+        Administrador.velocidadRondas -= 1;  // Disminuir la velocidad
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea AITextArea;
-    private javax.swing.JTextField IATextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel Prioridad1ST;
+    private javax.swing.JTextArea Prioridad1STT;
+    private javax.swing.JLabel Prioridad1SW;
+    private javax.swing.JTextArea Prioridad1SWT;
+    private javax.swing.JLabel Prioridad2ST;
+    private javax.swing.JTextArea Prioridad2STT;
+    private javax.swing.JLabel Prioridad2SW;
+    private javax.swing.JTextArea Prioridad2SWT;
+    private javax.swing.JLabel Prioridad3ST;
+    private javax.swing.JTextArea Prioridad3STT;
+    private javax.swing.JLabel Prioridad3SW;
+    private javax.swing.JTextArea Prioridad3SWT;
+    private javax.swing.JLabel Prioridad4ST;
+    private javax.swing.JTextArea Prioridad4STT;
+    private javax.swing.JLabel Prioridad4SW;
+    private javax.swing.JTextArea Prioridad4SWT;
+    private javax.swing.JScrollPane ScrollPane1;
+    private java.awt.Label Time;
+    private javax.swing.JLabel Titulo;
+    private javax.swing.JButton btnAumentar;
+    private javax.swing.JButton btnDisminuir;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
