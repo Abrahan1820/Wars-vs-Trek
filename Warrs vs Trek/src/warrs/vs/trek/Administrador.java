@@ -8,6 +8,7 @@ public class Administrador {
      static List<Queue<Personaje>> colasStarWars = new ArrayList<>();
     static List<Queue<Personaje>> colasStarTrek = new ArrayList<>();
     private Random random = new Random();
+    int velocidadRondas = 1;
     
     // Constructor: Inicializa las 4 colas de prioridad (3 de prioridad + 1 de refuerzo)
     public Administrador() {
@@ -21,7 +22,9 @@ public class Administrador {
 public void gestionarSistema(InteligenciaArtificial ia) {
     for (int ronda = 1; ronda <= 100; ronda++) {  // Asumiendo que 10 rondas son necesarias
         System.out.println("\n--- Ronda " + ronda + " ---");
-
+        
+        try {
+                Thread.sleep(velocidadRondas * 500);  // Pausa en milisegundos
         // Revisión de batallas y selección de personajes
         Personaje personajeSW = seleccionarPersonaje(colasStarWars);
         Personaje personajeST = seleccionarPersonaje(colasStarTrek);
@@ -42,6 +45,10 @@ public void gestionarSistema(InteligenciaArtificial ia) {
 
         // Mostrar el estado de las colas después de la ronda
         mostrarEstadoColas();
+        
+        } catch (InterruptedException e) {
+                System.err.println("Error en la pausa entre rondas: " + e.getMessage());
+            }
     }
 }
 
@@ -87,17 +94,51 @@ public void gestionarSistema(InteligenciaArtificial ia) {
     }
 
     // Método para mostrar el estado de las colas de Star Wars y Star Trek
-    public void mostrarEstadoColas() {
-        System.out.println("\nEstado de las colas de Star Wars:");
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Prioridad " + (i + 1) + ": " + colasStarWars.get(i));
-        }
-
-        System.out.println("\nEstado de las colas de Star Trek:");
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Prioridad " + (i + 1) + ": " + colasStarTrek.get(i));
+public String mostrarEstadoColas() {
+    StringBuilder resultado = new StringBuilder();
+    
+    // Mostrar colas de Star Wars
+    resultado.append("Estado de las colas Star Wars:\n");
+    for (int i = 0; i < colasStarWars.size(); i++) {
+        resultado.append("Prioridad ").append(i + 1).append(": ");
+        
+        // Mostrar elementos de la cola
+        Queue<Personaje> cola = colasStarWars.get(i);
+        if (cola.isEmpty()) {
+            resultado.append("Vacío\n");
+        } else {
+            for (Personaje personaje : cola) {
+                resultado.append(personaje.getNombre()).append(", "); // Asegúrate de tener un método getNombre() en Personaje
+            }
+            // Eliminar la última coma y espacio
+            resultado.setLength(resultado.length() - 2);
+            resultado.append("\n");
         }
     }
+    
+    // Mostrar colas de Star Trek
+    resultado.append("Estado de las colas Star Trek:\n");
+    for (int i = 0; i < colasStarTrek.size(); i++) {
+        resultado.append("Prioridad ").append(i + 1).append(": ");
+        
+        // Mostrar elementos de la cola
+        Queue<Personaje> cola = colasStarTrek.get(i);
+        if (cola.isEmpty()) {
+            resultado.append("Vacío\n");
+        } else {
+            for (Personaje personaje : cola) {
+                resultado.append(personaje.getNombre()).append(", ");
+            }
+            // Eliminar la última coma y espacio
+            resultado.setLength(resultado.length() - 2);
+            resultado.append("\n");
+        }
+    }
+    
+    return resultado.toString();
+}
+
+
 
     // Método para agregar un nuevo personaje
     public void agregarPersonaje(String saga, String nombre, int prioridad, int fuerza, int velocidad, int agilidad, int inteligencia, double suerte) {

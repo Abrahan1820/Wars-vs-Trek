@@ -3,11 +3,13 @@ import java.util.*;
 public class Simulador {
     private Administrador administrador;
     private InteligenciaArtificial ia;
+    private int delayEntreRondas;
     
     public Simulador() {
         // Inicializamos el Administrador y la IA
         administrador = new Administrador();
         ia = new InteligenciaArtificial();
+        this.delayEntreRondas = delayEntreRondas;
     }
 
     public void iniciarSimulacion() {
@@ -19,6 +21,12 @@ public class Simulador {
             System.out.println("\n--- Ronda " + (i + 1) + " ---");
             administrador.gestionarSistema(ia);  // El Administrador gestiona las batallas
             mostrarEstadoColas();  // Imprimir el estado de las colas después de la ronda
+            
+             try {
+                Thread.sleep(delayEntreRondas);  // Pausa en milisegundos
+            } catch (InterruptedException e) {
+                System.err.println("Error en la pausa entre rondas: " + e.getMessage());
+            }
         }
     }
 
@@ -83,7 +91,7 @@ public class Simulador {
     }
 
     public static void main(String[] args) {
-        // Crear el simulador y arrancar la simulación
+          int velocidadRondas = 2000; 
         Simulador simulador = new Simulador();
         simulador.iniciarSimulacion();
     }
