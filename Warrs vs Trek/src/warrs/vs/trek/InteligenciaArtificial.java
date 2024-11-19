@@ -3,35 +3,41 @@ import java.util.Random;
 public class InteligenciaArtificial {
     private Random random = new Random();
 
-    // Método para procesar una ronda de combate
-    public void procesarBatalla(Personaje personaje1, Personaje personaje2) {
-        // Simular el resultado del combate basado en las probabilidades
-        int resultado = determinarResultado();
+    public String procesarBatalla(Personaje personaje1, Personaje personaje2) {
+    // Simular el resultado del combate basado en las probabilidades
+    int resultado = determinarResultado();
 
-        switch (resultado) {
-            case 1: // Ganador
-                // Determinamos al ganador
-                Personaje ganador = determinarGanador(personaje1, personaje2);
-                System.out.println("El ganador es: " + ganador.getNombre());
-                // Borramos al perdedor de la simulación
-                eliminarPerdedor(personaje1, personaje2, ganador);
-                break;
+    StringBuilder resultadoBatalla = new StringBuilder();
 
-            case 2: // Empate
-                // Colocamos a ambos personajes al final de la cola de refuerzo
-                System.out.println("Empate. Ambos personajes van a la cola de refuerzo.");
-                enviarAColaRefuerzo(personaje1);
-                enviarAColaRefuerzo(personaje2);
-                break;
+    switch (resultado) {
+        case 1: // Ganador
+            // Determinamos al ganador
+            Personaje ganador = determinarGanador(personaje1, personaje2);
+            resultadoBatalla.append("El ganador es: ").append(ganador.getNombre()).append("\n");
+            // Borramos al perdedor de la simulación
+            eliminarPerdedor(personaje1, personaje2, ganador);
+            break;
 
-            case 3: // No se puede llevar a cabo el combate
-                // Enviamos ambos personajes a la cola de refuerzo
-                System.out.println("No se puede llevar a cabo el combate. Ambos personajes van a la cola de refuerzo.");
-                enviarAColaRefuerzo(personaje1);
-                enviarAColaRefuerzo(personaje2);
-                break;
-        }
+        case 2: // Empate
+            // Colocamos a ambos personajes al final de la cola de refuerzo
+            resultadoBatalla.append("Empate. Ambos personajes van a la cola de refuerzo.\n");
+            enviarAColaRefuerzo(personaje1);
+            enviarAColaRefuerzo(personaje2);
+            break;
+
+        case 3: // No se puede llevar a cabo el combate
+            // Enviamos ambos personajes a la cola de refuerzo
+            resultadoBatalla.append("No se puede llevar a cabo el combate. Ambos personajes van a la cola de refuerzo.\n");
+            enviarAColaRefuerzo(personaje1);
+            enviarAColaRefuerzo(personaje2);
+            break;
     }
+
+    // Devolver el resultado como String
+    return resultadoBatalla.toString();
+}
+
+
 
     // Método para determinar el resultado basado en las probabilidades
     private int determinarResultado() {

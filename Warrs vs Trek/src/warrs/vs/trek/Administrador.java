@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import javax.swing.*;
 
 public class Administrador {
      static List<Queue<Personaje>> colasStarWars = new ArrayList<>();
@@ -18,44 +19,45 @@ public class Administrador {
         }
     }
 
-   // Método para gestionar el ciclo de batalla y actualización de colas
-public void gestionarSistema(InteligenciaArtificial ia) {
-    for (int ronda = 1; ronda <= 100; ronda++) {  // Asumiendo que 10 rondas son necesarias
-        System.out.println("\n--- Ronda " + ronda + " ---");
-        
+ public void gestionarSistema(InteligenciaArtificial ia, JTextArea textArea) {
+    for (int ronda = 1; ronda <= 100; ronda++) {  // Asumiendo que 100 rondas son necesarias
+        // Mostrar ronda actual en el JTextArea
+        textArea.append("\n--- Ronda " + ronda + " ---\n");
+
         try {
-                Thread.sleep(velocidadRondas * 1000);  // Pausa en milisegundos
-        // Revisión de batallas y selección de personajes
-        Personaje personajeSW = seleccionarPersonaje(colasStarWars);
-        Personaje personajeST = seleccionarPersonaje(colasStarTrek);
-        
-        if (personajeSW != null && personajeST != null) {
-            System.out.println("Batalla entre: " + personajeSW.getNombre() + " (Star Wars) y " + personajeST.getNombre() + " (Star Trek)");
-            ia.procesarBatalla(personajeSW, personajeST);
-        } else {
-            System.out.println("No hay personajes disponibles para la batalla. Procediendo con las colas de refuerzo.");
-        }
+            Thread.sleep(velocidadRondas * 1000);  // Pausa en milisegundos
 
-        // Reintegrar personajes de refuerzo a las colas de prioridad más baja
-        int contador = 0; // Inicializa el contador
-
-        // Dentro de tu bucle:
-        contador++;
-        if (contador > 4) {
-            reintegrarPersonajes(colasStarWars);
-            reintegrarPersonajes(colasStarTrek);
-        }
-        
-        // Después de cada batalla, se actualizan las colas y los personajes se envían a refuerzo si es necesario
-        actualizarColas();
-
-
-        
-        } catch (InterruptedException e) {
-                System.err.println("Error en la pausa entre rondas: " + e.getMessage());
+            // Revisión de batallas y selección de personajes
+            Personaje personajeSW = seleccionarPersonaje(colasStarWars);
+            Personaje personajeST = seleccionarPersonaje(colasStarTrek);
+            
+            if (personajeSW != null && personajeST != null) {
+                // Mostrar que se están enfrentando estos personajes
+                textArea.append("Batalla entre: " + personajeSW.getNombre() + " (Star Wars) y " + personajeST.getNombre() + " (Star Trek)\n");
+                // Pasamos el JTextArea al procesarBatalla para que lo llene con los resultados
+                String resultado = ia.procesarBatalla(personajeSW, personajeST);
+                textArea.append(resultado + "\n");  // Mostrar el resultado de la batalla
+            } else {
+                textArea.append("No hay personajes disponibles para la batalla. Procediendo con las colas de refuerzo.\n");
             }
+
+            // Reintegrar personajes de refuerzo a las colas de prioridad más baja
+            int contador = 0; // Inicializa el contador
+            contador++;
+            if (contador > 4) {
+                reintegrarPersonajes(colasStarWars);
+                reintegrarPersonajes(colasStarTrek);
+            }
+            
+            // Actualizar las colas después de cada ronda
+            actualizarColas();
+
+        } catch (InterruptedException e) {
+            System.err.println("Error en la pausa entre rondas: " + e.getMessage());
+        }
     }
 }
+
 
     // Método para seleccionar un personaje de la cola de prioridad más alta disponible
     private Personaje seleccionarPersonaje(List<Queue<Personaje>> colas) {
