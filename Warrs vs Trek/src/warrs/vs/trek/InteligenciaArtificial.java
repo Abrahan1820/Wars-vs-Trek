@@ -1,6 +1,8 @@
 import java.util.Random;
 
 public class InteligenciaArtificial {
+    static int victoriasStarWars = 0;
+    static int victoriasStarTrek = 0;
     private Random random = new Random();
 
     public String procesarBatalla(Personaje personaje1, Personaje personaje2) {
@@ -16,6 +18,12 @@ public class InteligenciaArtificial {
             resultadoBatalla.append("El ganador es: ").append(ganador.getNombre()).append("\n");
             // Borramos al perdedor de la simulación
             eliminarPerdedor(personaje1, personaje2, ganador);
+            
+             if (ganador.getSaga().equalsIgnoreCase("Star Wars")) {
+            victoriasStarWars++;
+            } else if (ganador.getSaga().equalsIgnoreCase("Star Trek")) {
+            victoriasStarTrek++;
+            }
             break;
 
         case 2: // Empate
@@ -52,16 +60,25 @@ public class InteligenciaArtificial {
     }
 
     // Determinar el ganador entre dos personajes basado en su poder de batalla
-    private Personaje determinarGanador(Personaje personaje1, Personaje personaje2) {
-        int fuerza1 = personaje1.getFuerza() + (int)(personaje1.getSuerte() * random.nextInt(100));
-        int fuerza2 = personaje2.getFuerza() + (int)(personaje2.getSuerte() * random.nextInt(100));
+    // Determinar el ganador entre los dos personajes
+private Personaje determinarGanador(Personaje personaje1, Personaje personaje2) {
+    int fuerza1 = (personaje1.getFuerza() + personaje1.getVelocidad() + personaje1.getAgilidad() + personaje1.getInteligencia()) * (int)personaje1.getSuerte();
+    int fuerza2 = (personaje2.getFuerza() + personaje2.getVelocidad() + personaje2.getAgilidad() + personaje2.getInteligencia()) * (int)personaje2.getSuerte();
 
-        if (fuerza1 > fuerza2) {
-            return personaje1;
-        } else {
-            return personaje2;
-        }
+    Personaje ganador;
+    if (fuerza1 > fuerza2) {
+        ganador = personaje1;
+    } else {
+        ganador = personaje2;
     }
+
+    // Registrar la victoria en el Administrador
+    String sagaGanadora = ganador.getSaga();  // Se asume que los personajes tienen un método getSaga()
+
+
+    return ganador;
+}
+
 
     // Método para eliminar al perdedor del combate
     private void eliminarPerdedor(Personaje personaje1, Personaje personaje2, Personaje ganador) {

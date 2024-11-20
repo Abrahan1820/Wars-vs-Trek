@@ -11,6 +11,8 @@ public class Administrador {
     private Random random = new Random();
     static int velocidadRondas = 1;
     
+
+    
     // Constructor: Inicializa las 4 colas de prioridad (3 de prioridad + 1 de refuerzo)
     public Administrador() {
         for (int i = 0; i < 4; i++) {
@@ -72,13 +74,23 @@ public class Administrador {
 
     // Método para reintroducir personajes de la cola de refuerzo en la cola de prioridad más baja
     private void reintegrarPersonajes(List<Queue<Personaje>> colas) {
-        Queue<Personaje> colaRefuerzo = colas.get(3);  // La cola de refuerzo es la de índice 3
-        while (!colaRefuerzo.isEmpty()) {
-            Personaje personaje = colaRefuerzo.poll();
-            System.out.println("Reintegrando a " + personaje.getNombre() + " en la cola de prioridad 3.");
-            colas.get(2).add(personaje);  // Reintroducimos al personaje en la cola de la prioridad más baja (índice 2)
+    Queue<Personaje> colaRefuerzo = colas.get(3);  // La cola de refuerzo es la de índice 3
+    while (!colaRefuerzo.isEmpty()) {
+        Personaje personaje = colaRefuerzo.poll();
+        
+        // Obtener la prioridad del personaje
+        int prioridad = personaje.getPrioridad();  
+        
+        if (prioridad >= 0 && prioridad <= 2) {
+            System.out.println("Reintegrando a " + personaje.getNombre() + " en la cola de prioridad " + prioridad + ".");
+            colas.get(prioridad).add(personaje);  // Reintroducir al personaje en la cola correspondiente
+        } else {
+            System.out.println("Error: La prioridad de " + personaje.getNombre() + " es inválida.");
         }
     }
+}
+
+
 
     // Método para actualizar las colas después de cada ronda
     private void actualizarColas() {
@@ -166,5 +178,8 @@ private boolean esDuplicado(Queue<Personaje> cola, Personaje nuevoPersonaje) {
     }
     return false;  // El personaje no existe, por lo que se puede agregar
 }
+
+
+
 
 }
