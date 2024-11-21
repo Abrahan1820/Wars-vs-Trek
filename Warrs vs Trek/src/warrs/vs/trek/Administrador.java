@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 import javax.swing.*;
 
 public class Administrador {
@@ -10,6 +12,7 @@ public class Administrador {
     static List<Queue<Personaje>> colasStarTrek = new ArrayList<>();
     private Random random = new Random();
     static int velocidadRondas = 1;
+    int contador = 0; // Inicializa el contador
     
 
     
@@ -33,6 +36,8 @@ public class Administrador {
             Personaje personajeSW = seleccionarPersonaje(colasStarWars);
             Personaje personajeST = seleccionarPersonaje(colasStarTrek);
             
+            
+            
             if (personajeSW != null && personajeST != null) {
                 // Mostrar que se están enfrentando estos personajes
                 textArea.append("Batalla entre: " + personajeSW.getNombre() + " (Star Wars) y " + personajeST.getNombre() + " (Star Trek)\n");
@@ -42,15 +47,22 @@ public class Administrador {
             } else {
                 textArea.append("No hay personajes disponibles para la batalla. Procediendo con las colas de refuerzo.\n");
             }
+            
+            eliminarDuplicados(colasStarWars);
+            eliminarDuplicados(colasStarTrek);
 
             // Reintegrar personajes de refuerzo a las colas de prioridad más baja
-            int contador = 0; // Inicializa el contador
+            
             contador++;
             if (contador > 4) {
+                contador = 0;
                 reintegrarPersonajes(colasStarWars);
                 reintegrarPersonajes(colasStarTrek);
+                
+                eliminarDuplicados(colasStarWars);
+                eliminarDuplicados(colasStarTrek);
             }
-            
+            incrementarCounter();
             // Actualizar las colas después de cada ronda
             actualizarColas();
 
@@ -93,24 +105,48 @@ public class Administrador {
 
 
     // Método para actualizar las colas después de cada ronda
-    private void actualizarColas() {
-        // Mover personajes de refuerzo según las reglas
-        for (int i = 0; i < 4; i++) {
-            Queue<Personaje> cola = (i < 3) ? colasStarWars.get(i) : colasStarTrek.get(i-3);
-            if (!cola.isEmpty()) {
-                Personaje personaje = cola.peek();
-                // Si el personaje ha sido actualizado, moverlo a la siguiente cola de prioridad
-                if (personaje.getContador() >= 8 && personaje.getPrioridad() < 3) {
-                    personaje.setContador(0);
-                    personaje.setPrioridad(personaje.getPrioridad() + 1);  // Pasar a la siguiente prioridad
+   private void actualizarColas() {
+    // Mover personajes de refuerzo según las reglas
+    for (int i = 0; i < 3; i++) {
+        Queue<Personaje> colaStarWars = colasStarWars.get(i);  // Cola en Star Wars
+        Queue<Personaje> colaStarTrek = colasStarTrek.get(i);  // Cola en Star Trek
+
+        // Verificar y mover personajes en cada cola
+        if (!colaStarWars.isEmpty()) {
+            Personaje personaje = colaStarWars.peek();
+            if (personaje.getContador() >= 8) {
+                // Mover personaje a la siguiente cola de prioridad
+                if (i < 2) {  // Si no está en la cola de más alta prioridad
+                    
+                    colaStarWars.poll();  // Eliminar el personaje de la cola actual
+                    colasStarWars.get(i - 1).add(personaje);  // Moverlo a la siguiente cola
+                    personaje.setContador(0);  // Reiniciar el contador
                 }
-                // Si no está listo para la batalla, agregarlo al refuerzo
-                else if (random.nextInt(100) >= 40) {
-                    cola.add(personaje);
+            } else if (random.nextInt(100) >= 40) {
+                // Si no está listo para la batalla, ponerlo de nuevo en la cola
+                colaStarWars.add(personaje);
+                personaje.setContador(0);  // Reiniciar el contador
+            }
+        }
+
+        if (!colaStarTrek.isEmpty()) {
+            Personaje personaje = colaStarTrek.peek();
+            if (personaje.getContador() >= 8) {
+                // Mover personaje a la siguiente cola de prioridad
+                if (i < 2) {  // Si no está en la cola de más alta prioridad
+                    colaStarTrek.poll();  // Eliminar el personaje de la cola actual
+                    colasStarTrek.get(i - 1).add(personaje);  // Moverlo a la siguiente cola
+                    personaje.setContador(0);  // Reiniciar el contador
                 }
+            } else if (random.nextInt(100) >= 40) {
+                // Si no está listo para la batalla, ponerlo de nuevo en la cola
+                colaStarTrek.add(personaje);
+                personaje.setContador(0);  // Reiniciar el contador
             }
         }
     }
+}
+
 
 // Métodos para Star Wars
     public String mostrarEstadoColaStarWars(int prioridad) {
@@ -123,6 +159,7 @@ public String mostrarEstadoColaStarTrek(int prioridad) {
 }
 
 // Método auxiliar genérico para obtener el estado de una cola específica
+// Método auxiliar genérico para obtener el estado de una cola específica
 private String mostrarEstadoColaEspecifica(List<Queue<Personaje>> colas, int prioridad, String universo) {
     StringBuilder resultado = new StringBuilder();
 
@@ -132,21 +169,32 @@ private String mostrarEstadoColaEspecifica(List<Queue<Personaje>> colas, int pri
         return resultado.toString();
     }
 
+    
+
     // Obtener la cola correspondiente
     Queue<Personaje> cola = colas.get(prioridad);
-    if (cola.isEmpty()) {
-        resultado.append("Vacío\n");
+
+    if (cola == null || cola.isEmpty()) {
+        resultado.append("La cola está vacía.\n");
     } else {
-        for (Personaje personaje : cola) {
-            resultado.append(personaje.getId()).append(' ').append(personaje.getNombre()).append("\n");
+        // Crear una copia de la cola para iterar de forma segura
+        List<Personaje> copiaCola = new ArrayList<>(cola);
+
+        for (Personaje personaje : copiaCola) {
+            if (personaje != null) { // Validar que el personaje no sea nulo
+                resultado.append("ID: ").append(personaje.getId())
+                        .append(" | Nombre: ").append(personaje.getNombre())
+                        .append("\n");
+            } else {
+                resultado.append("Un elemento nulo fue encontrado en la cola.\n");
+            }
         }
-        // Eliminar la última coma y espacio
-        resultado.setLength(resultado.length() - 2);
-        resultado.append("\n");
     }
 
     return resultado.toString();
 }
+
+
 
 
     // Método para agregar un nuevo personaje
@@ -179,6 +227,42 @@ private boolean esDuplicado(Queue<Personaje> cola, Personaje nuevoPersonaje) {
     return false;  // El personaje no existe, por lo que se puede agregar
 }
 
+// Método para eliminar duplicados
+    public void eliminarDuplicados(List<Queue<Personaje>> colas) {
+        Set<Personaje> personajesVistos = new HashSet<>();
+        for (Queue<Personaje> cola : colas) {
+            Queue<Personaje> colaTemporal = new LinkedList<>();
+            for (Personaje personaje : cola) {
+                if (personajesVistos.add(personaje)) {
+                    colaTemporal.add(personaje);
+                } else {
+                    System.out.println("Eliminando duplicado: " + personaje.getNombre());
+                }
+            }
+            cola.clear();
+            cola.addAll(colaTemporal);
+        }
+    }
+    
+    public void incrementarCounter() {
+    // Recorrer las colas de Star Wars
+    for (int i = 0; i < 3; i++) {
+        Queue<Personaje> colaStarWars = colasStarWars.get(i);
+        for (Personaje personaje : colaStarWars) {
+            // Incrementar el idCounter de cada personaje
+            personaje.incrementarIdCounter();
+        }
+    }
+    
+    // Recorrer las colas de Star Trek
+    for (int i = 0; i < 3; i++) {
+        Queue<Personaje> colaStarTrek = colasStarTrek.get(i);
+        for (Personaje personaje : colaStarTrek) {
+            // Incrementar el idCounter de cada personaje
+            personaje.incrementarIdCounter();
+        }
+    }
+}
 
 
 

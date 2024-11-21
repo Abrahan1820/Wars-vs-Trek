@@ -60,4 +60,9 @@ public class Personaje {
     public String toString() {
         return nombre + " (" + saga + ") - Prioridad: " + prioridad + ", Fuerza: " + fuerza + ", Velocidad: " + velocidad;
     }
+    
+    // Método para incrementar el idCounter
+    public void incrementarIdCounter() {
+        this.contador++;
+    }
 }
