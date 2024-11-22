@@ -1,3 +1,4 @@
+import java.awt.Point;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,11 +9,40 @@ public class Main extends javax.swing.JFrame {
     
     private Administrador administrador;
     private InteligenciaArtificial ia;
+    private Icon[] icons; // Array de íconos
+    private Icon[] icons2;
+    private int currentIndex = 0;
+    private int currentIndex2 = 0;
+    
+     
+    
     
 
-
     public Main() {
+        // Cargar las imágenes
+        icons = new Icon[]{
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\1.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\2.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\3.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\4.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\5.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\6.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\7.jpg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\8.jpg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\9.jpg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\10.jpg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarWarsImages\\11.jpg"),
+        };
         
+        icons2 = new Icon[]{
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek1.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek3.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek4.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek6.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek7.jpg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek8.jpeg"),
+            new ImageIcon("C:\\Users\\User-local\\Desktop\\abrahan\\Wars-vs-Trek\\Warrs vs Trek\\src\\StarTrekImages\\trek9.jpeg"),
+        };
         
         this.setVisible(true);
         initComponents();
@@ -40,7 +70,8 @@ public class Main extends javax.swing.JFrame {
         
         inicializarInterfaz(); 
         
-        
+       
+        iniciarTemporizador();
     }
     
     public void iniciarSimulacion() {
@@ -130,17 +161,17 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
         Prioridad1SW = new javax.swing.JLabel();
-        ScrollPane1 = new javax.swing.JScrollPane();
+        Scroll = new javax.swing.JScrollPane();
         Prioridad1SWT = new javax.swing.JTextArea();
         Prioridad2SW = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Prioridad2SWT = new javax.swing.JTextArea();
+        Prioridad3SWT = new javax.swing.JTextArea();
         Prioridad3SW = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         Prioridad4SWT = new javax.swing.JTextArea();
         Prioridad4SW = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        Prioridad3SWT = new javax.swing.JTextArea();
+        Prioridad2SWT = new javax.swing.JTextArea();
         Prioridad1ST = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         Prioridad1STT = new javax.swing.JTextArea();
@@ -164,6 +195,8 @@ public class Main extends javax.swing.JFrame {
         STVictories = new javax.swing.JLabel();
         SWVictoriesText = new javax.swing.JTextField();
         STVictoriesText = new javax.swing.JTextField();
+        SWImage = new javax.swing.JLabel();
+        STImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,27 +210,41 @@ public class Main extends javax.swing.JFrame {
         Prioridad1SW.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad1SW.setText("Prioridad 1");
 
+        Scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        Scroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        Scroll.setEnabled(false);
+        Scroll.setRowHeaderView(null);
+        Scroll.setVerifyInputWhenFocusTarget(false);
+        Scroll.setViewportView(Prioridad1SWT);
+        Scroll.setWheelScrollingEnabled(false);
+
         Prioridad1SWT.setEditable(false);
         Prioridad1SWT.setColumns(20);
         Prioridad1SWT.setRows(5);
         Prioridad1SWT.setAutoscrolls(false);
         Prioridad1SWT.setRequestFocusEnabled(false);
-        ScrollPane1.setViewportView(Prioridad1SWT);
+        Scroll.setViewportView(Prioridad1SWT);
 
         Prioridad2SW.setBackground(new java.awt.Color(51, 51, 51));
         Prioridad2SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
         Prioridad2SW.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad2SW.setText("Prioridad 2");
 
-        Prioridad2SWT.setColumns(20);
-        Prioridad2SWT.setRows(5);
-        Prioridad2SWT.setAutoscrolls(false);
-        jScrollPane2.setViewportView(Prioridad2SWT);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        Prioridad3SWT.setColumns(20);
+        Prioridad3SWT.setRows(5);
+        Prioridad3SWT.setAutoscrolls(false);
+        jScrollPane2.setViewportView(Prioridad3SWT);
 
         Prioridad3SW.setBackground(new java.awt.Color(51, 51, 51));
         Prioridad3SW.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
         Prioridad3SW.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad3SW.setText("Prioridad 3");
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         Prioridad4SWT.setColumns(20);
         Prioridad4SWT.setRows(5);
@@ -209,14 +256,20 @@ public class Main extends javax.swing.JFrame {
         Prioridad4SW.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad4SW.setText("Reserva");
 
-        Prioridad3SWT.setColumns(20);
-        Prioridad3SWT.setRows(5);
-        Prioridad3SWT.setAutoscrolls(false);
-        jScrollPane4.setViewportView(Prioridad3SWT);
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        Prioridad2SWT.setColumns(20);
+        Prioridad2SWT.setRows(5);
+        Prioridad2SWT.setAutoscrolls(false);
+        jScrollPane4.setViewportView(Prioridad2SWT);
 
         Prioridad1ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
         Prioridad1ST.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad1ST.setText("Prioridad 1");
+
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         Prioridad1STT.setEditable(false);
         Prioridad1STT.setColumns(20);
@@ -229,6 +282,9 @@ public class Main extends javax.swing.JFrame {
         Prioridad2ST.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad2ST.setText("Prioridad 2");
 
+        jScrollPane6.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane6.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         Prioridad2STT.setColumns(20);
         Prioridad2STT.setRows(5);
         Prioridad2STT.setAutoscrolls(false);
@@ -239,6 +295,9 @@ public class Main extends javax.swing.JFrame {
         Prioridad3ST.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad3ST.setText("Prioridad 3");
 
+        jScrollPane7.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane7.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         Prioridad3STT.setColumns(20);
         Prioridad3STT.setRows(5);
         Prioridad3STT.setAutoscrolls(false);
@@ -248,6 +307,9 @@ public class Main extends javax.swing.JFrame {
         Prioridad4ST.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 12)); // NOI18N
         Prioridad4ST.setForeground(new java.awt.Color(255, 255, 255));
         Prioridad4ST.setText("Reserva");
+
+        jScrollPane8.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane8.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         Prioridad4STT.setColumns(20);
         Prioridad4STT.setRows(5);
@@ -274,6 +336,9 @@ public class Main extends javax.swing.JFrame {
         IA.setForeground(new java.awt.Color(255, 255, 255));
         IA.setText("IA");
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setEnabled(false);
+
         IAT.setColumns(20);
         IAT.setRows(5);
         jScrollPane1.setViewportView(IAT);
@@ -297,6 +362,10 @@ public class Main extends javax.swing.JFrame {
 
         STVictoriesText.setText("0");
 
+        SWImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/StarWarsImages/1.jpeg"))); // NOI18N
+
+        STImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/StarTrekImages/trek1.jpeg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -304,160 +373,170 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Prioridad3SW)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(IA)
+                                .addComponent(Prioridad4SW)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Prioridad2SW)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Prioridad1SW)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Prioridad4SW)
-                                    .addComponent(Prioridad3SW))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Prioridad1SW)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(Prioridad2SW)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(73, 73, 73)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(Prioridad1ST)
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(27, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Prioridad2ST)
-                                    .addComponent(Prioridad3ST)
-                                    .addComponent(Prioridad4ST))
-                                .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(STImage)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Prioridad4ST, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(Prioridad3ST, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(SWImage)
+                                        .addGap(72, 72, 72)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Prioridad1ST)
+                                            .addComponent(Prioridad2ST)
+                                            .addComponent(SWVictories)
+                                            .addComponent(STVictories))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(IA)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SWVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(STVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(SWVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(SWVictories)
-                                .addGap(26, 26, 26))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(STVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(STVictories)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDisminuir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(timex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAumentar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                                .addGap(240, 240, 240)
+                                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(btnDisminuir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addComponent(timex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(btnAumentar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(43, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(timex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnDisminuir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAumentar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(timex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnDisminuir, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAumentar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Prioridad1ST)
-                    .addComponent(Prioridad1SW)
-                    .addComponent(ScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(Prioridad1SW))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(48, 48, 48)
+                                        .addComponent(Prioridad1ST)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(Prioridad2SW)
+                                        .addGap(102, 102, 102)
+                                        .addComponent(Prioridad3SW))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(64, 64, 64)
+                                        .addComponent(Prioridad2ST)
+                                        .addGap(92, 92, 92)
+                                        .addComponent(Prioridad3ST)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(Prioridad4SW))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Prioridad4ST)
+                                        .addGap(41, 41, 41))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(SWImage)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(STImage))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(Scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Prioridad2SW))
+                        .addGap(62, 62, 62)
+                        .addComponent(IA))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(Prioridad2ST))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(Prioridad3SW))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Prioridad3ST))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(Prioridad4SW))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(Prioridad4ST))
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(IA)
-                                .addGap(69, 69, 69))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SWVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SWVictories))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(STVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(STVictories))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(SWVictories)
+                                    .addComponent(SWVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(STVictories)
+                                    .addComponent(STVictoriesText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -478,9 +557,14 @@ public class Main extends javax.swing.JFrame {
             @Override
             // Establece el texto inicial del JTextField
             public void actionPerformed(ActionEvent e){
+                
+                
+                
+                 
+                
                 Prioridad1SWT.setText(administrador.mostrarEstadoColaStarWars(0));
-                Prioridad2SWT.setText(administrador.mostrarEstadoColaStarWars(1));
-                Prioridad3SWT.setText(administrador.mostrarEstadoColaStarWars(2));
+                Prioridad3SWT.setText(administrador.mostrarEstadoColaStarWars(1));
+                Prioridad2SWT.setText(administrador.mostrarEstadoColaStarWars(2));
                 Prioridad4SWT.setText(administrador.mostrarEstadoColaStarWars(3));
                 
                 Prioridad1STT.setText(administrador.mostrarEstadoColaStarTrek(0));
@@ -503,9 +587,10 @@ timer.start();
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
+       
          Main simulador = new Main();
         simulador.iniciarSimulacion();
-          
+         
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -549,6 +634,44 @@ private void btnDisminuirActionPerformed(java.awt.event.ActionEvent evt) {
     }
 }
 
+ private volatile boolean running = true; // Controla si el hilo sigue ejecutándose
+private long tiempoDeEspera = Administrador.velocidadRondas * 1000; // Tiempo inicial de espera en milisegundos
+
+private void iniciarTemporizador() {
+    Thread thread = new Thread(() -> {
+        while (running) {
+            try {
+                // Esperar el tiempo de espera actual
+                Thread.sleep(tiempoDeEspera);
+
+                // Actualizar las imágenes en el hilo de eventos de Swing
+                SwingUtilities.invokeLater(() -> {
+                    currentIndex = (currentIndex + 1) % icons.length; // Avanza al siguiente ícono
+                    currentIndex2 = (currentIndex2 + 1) % icons2.length; // Avanza al siguiente ícono
+                    SWImage.setIcon(icons[currentIndex]);
+                    STImage.setIcon(icons2[currentIndex2]);
+                });
+                
+                // Verificar si la velocidad ha cambiado
+                long nuevoTiempoDeEspera = Administrador.velocidadRondas * 1000;
+                if (nuevoTiempoDeEspera != tiempoDeEspera) {
+                    tiempoDeEspera = nuevoTiempoDeEspera; // Actualizar el tiempo de espera si la velocidad ha cambiado
+                }
+
+            } catch (InterruptedException e) {
+                System.err.println("El temporizador fue interrumpido: " + e.getMessage());
+                Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+            }
+        }
+    });
+
+    thread.start(); // Iniciar el hilo
+}
+
+
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IA;
     private javax.swing.JTextArea IAT;
@@ -568,11 +691,13 @@ private void btnDisminuirActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTextArea Prioridad4STT;
     private javax.swing.JLabel Prioridad4SW;
     private javax.swing.JTextArea Prioridad4SWT;
+    private javax.swing.JLabel STImage;
     private javax.swing.JLabel STVictories;
     private javax.swing.JTextField STVictoriesText;
+    private javax.swing.JLabel SWImage;
     private javax.swing.JLabel SWVictories;
     private javax.swing.JTextField SWVictoriesText;
-    private javax.swing.JScrollPane ScrollPane1;
+    private javax.swing.JScrollPane Scroll;
     private java.awt.Label Time;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAumentar;
@@ -589,3 +714,4 @@ private void btnDisminuirActionPerformed(java.awt.event.ActionEvent evt) {
     private java.awt.Label timex;
     // End of variables declaration//GEN-END:variables
 }
+

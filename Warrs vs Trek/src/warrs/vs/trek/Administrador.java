@@ -27,7 +27,7 @@ public class Administrador {
  public void gestionarSistema(InteligenciaArtificial ia, JTextArea textArea) {
     for (int ronda = 1; ronda <= 100; ronda++) {  // Asumiendo que 100 rondas son necesarias
         // Mostrar ronda actual en el JTextArea
-        textArea.append("\n--- Ronda " + ronda + " ---\n");
+        textArea.append("Ronda " + ronda + " ---\n");
 
         try {
             Thread.sleep(velocidadRondas * 1000);  // Pausa en milisegundos
@@ -48,6 +48,7 @@ public class Administrador {
                 textArea.append("No hay personajes disponibles para la batalla. Procediendo con las colas de refuerzo.\n");
             }
             
+            
             eliminarDuplicados(colasStarWars);
             eliminarDuplicados(colasStarTrek);
 
@@ -66,6 +67,7 @@ public class Administrador {
             // Actualizar las colas después de cada ronda
             actualizarColas();
 
+            
         } catch (InterruptedException e) {
             System.err.println("Error en la pausa entre rondas: " + e.getMessage());
         }
@@ -236,7 +238,7 @@ private boolean esDuplicado(Queue<Personaje> cola, Personaje nuevoPersonaje) {
                 if (personajesVistos.add(personaje)) {
                     colaTemporal.add(personaje);
                 } else {
-                    System.out.println("Eliminando duplicado: " + personaje.getNombre());
+                    
                 }
             }
             cola.clear();
